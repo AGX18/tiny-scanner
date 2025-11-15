@@ -14,7 +14,7 @@ func main() {
 
 	// 1. Get input file path from command-line arguments
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: scanner <input_file_path>")
+		fmt.Println("Usage: tiny-scanner <input_file_path> [output_file_path]]")
 		os.Exit(1)
 	}
 	inputFilePath := os.Args[1]
@@ -34,6 +34,10 @@ func main() {
 	// 4. Create the output file
 	// We'll name it "output.txt" and place it in the same directory.
 	outputFilePath := "output.txt"
+	if len(os.Args) > 2 && os.Args[2] != "" {
+		outputFilePath = os.Args[2]
+	}
+
 	outputFile, err := os.Create(outputFilePath)
 	if err != nil {
 		fmt.Printf("Error creating output file: %v\n", err)
