@@ -49,11 +49,11 @@ func TestScanTokens(t *testing.T) {
 			name: "Comments and Newlines",
 			// We use backticks (`) for a multi-line string
 			input: `
-read x;
-/* this is a
-   multi-line comment */
-write x
-`,
+			read x;
+			/* this is a
+			multi-line comment */
+			write x
+			`,
 			expected: []Token{
 				// Note: Line numbers start at 2 because of the first newline
 				{Type: READ, Value: "read", Line: 2},
@@ -66,7 +66,28 @@ write x
 			},
 		},
 
-		// --- Test Case 4: All Single/Multi-Char Operators ---
+		// --- Test Case 4: new Else requirement ---
+		{
+			name:  "Keywords and Operators",
+			input: "if x < 0 then x := 0 else x := 1 end",
+			expected: []Token{
+				{Type: IF, Value: "if", Line: 1},
+				{Type: IDENTIFIER, Value: "x", Line: 1},
+				{Type: LESSTHAN, Value: "<", Line: 1},
+				{Type: NUMBER, Value: "0", Line: 1},
+				{Type: THEN, Value: "then", Line: 1},
+				{Type: IDENTIFIER, Value: "x", Line: 1},
+				{Type: ASSIGN, Value: ":=", Line: 1},
+				{Type: NUMBER, Value: "0", Line: 1},
+				{Type: ELSE, Value: "else", Line: 1},
+				{Type: IDENTIFIER, Value: "x", Line: 1},
+				{Type: ASSIGN, Value: ":=", Line: 1},
+				{Type: NUMBER, Value: "1", Line: 1},
+				{Type: END, Value: "end", Line: 1},
+				{Type: EOF, Value: "EOF", Line: 1},
+			},
+		},
+		// --- Test Case 5: All Single/Multi-Char Operators ---
 		{
 			name:  "All Operators",
 			input: "+ - * / = < () ; :=",

@@ -33,6 +33,7 @@ const (
 	// Keywords
 	IF     // if
 	THEN   // then
+	ELSE   // else
 	END    // end
 	REPEAT // repeat
 	UNTIL  // until
@@ -44,6 +45,7 @@ const (
 var keywords = map[string]TokenType{
 	"if":     IF,
 	"then":   THEN,
+	"else":   ELSE,
 	"end":    END,
 	"repeat": REPEAT,
 	"until":  UNTIL,
@@ -94,6 +96,8 @@ func (t TokenType) String() string {
 		return "IF"
 	case THEN:
 		return "THEN"
+	case ELSE:
+		return "ELSE"
 	case END:
 		return "END"
 	case REPEAT:
